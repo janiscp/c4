@@ -2,11 +2,11 @@
 
 (function() {
 
-    var player = "p1";
     var socket = io();
+    var player = "p1";
     var playGame = {};
 
-    // board
+    // game board
     var rowSize = 6, colSize = 7;
     var gameBoard = createBoard(rowSize, colSize);
     var discCounter = rowSize * colSize;
@@ -42,8 +42,6 @@
 
             $("div#player-status").html(player_name);
         }
-
-            
     });
 
     socket.on('switch_player', function (data) {
@@ -166,12 +164,9 @@
         }
 
         hdr.style.backgroundColor = color;
-        //console.log(color);
     }
 
 
-
-    
 
     /**
      *  functions related to player executions
@@ -186,7 +181,6 @@
         
         move(col);
         socket.emit('player_move', col);
-        //console.log(disc);
     }
 
 
@@ -194,7 +188,6 @@
         var x = currentSpace[col];
         var space = document.getElementById("row" + x + "col" + col);
         var currentPlayer = [];
-        //console.log(space);
 
         if (x >= rowSize || col >= colSize){
             return;
@@ -208,14 +201,12 @@
         lastMove.p = player;
         currentSpace[col] = ++x;
 
-        //console.log(player); 
         if (player == 'p1') {
             currentPlayer = p1;
         }
         else {
             currentPlayer = p2;
         }
-
 
         if (!currentPlayer['row' + lastMove.x]) {
             currentPlayer['row' + lastMove.x] = [col];
@@ -234,46 +225,6 @@
         if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y]) {
             currentPlayer['row' + lastMove.x + 'col' + lastMove.y] = 1;
         }
-
-
-        /*if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'RU']) {
-            currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'RU' ] = 1;
-
-            var xx = (lastMove.x != 0) ? lastMove.x - 1 : lastMove.x + 1;
-            var yy = (lastMove.x != 0) ? lastMove.y - 1 : lastMove.y + 1;
-            for (var a=0; a < 4; a++) {
-                if (currentPlayer['row' + xx + 'col' + yy + 'RU']) {
-                    currentPlayer['row' + xx + 'col' + yy + 'RU']++;
-                }
-                else {
-                    break;
-                }
-                xx = (lastMove.x != 0) ? xx-1 : xx+1;
-                yy = (lastMove.x != 0) ? yy-1 : yy+1;
-            }
-        }
-
-
-        if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'LU']) {
-            currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'LU' ] = 1;
-
-            var xx = (lastMove.x != 0) ? lastMove.x - 1 : lastMove.x + 1;
-            var yy = (lastMove.x != 0) ? lastMove.y + 1 : lastMove.y - 1;
-            for (var a=0; a < 4; a++) {
-                if (currentPlayer['row' + xx + 'col' + yy + 'LU']) { 
-                    currentPlayer['row' + xx + 'col' + yy + 'LU']++;
-                }
-                else {
-                    break;
-                }
-                xx = (lastMove.x != 0) ? xx-1 : xx+1;
-                yy = (lastMove.x != 0) ? yy+1 : yy-1;
-            }
-        }*/
-        
-        console.log(p1);
-        console.log(p2);
-        
 
         checkPattern(player, currentPlayer);
         switchPlayer();
@@ -304,9 +255,7 @@
         
         Object.keys(p).forEach(function(key) {
             var arr = null;
-            //console.log(p);
 
-            
             if (key.includes('row') && key.includes('col')) { debugger;
                 var rowStart = parseInt(key.substr(3, 1));
                 var colStart = parseInt(key.substr(7, 1));
@@ -362,21 +311,8 @@
         $("p#message-winner").text(msg);
         $(".ui-dialog-titlebar").hide();
         $("#dialog-winner").dialog("open");
-
-        /*setTimeout(function() {
-            alert(winner + ' wins!');
-            player = "p1";
-            currentSpace = [0, 0, 0, 0, 0, 0, 0];
-            lastMove = {x:0, y:0, p:0};
-            p1 = {};
-            p2 = {};
-            
-            gameBoard = createBoard(rowSize, colSize);
-            drawBoard();
-        }, 100);*/
     }
     
-
 
     // Draw board
     drawBoard();
