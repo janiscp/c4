@@ -256,7 +256,7 @@
         Object.keys(p).forEach(function(key) {
             var arr = null;
 
-            if (key.includes('row') && key.includes('col')) { debugger;
+            if (key.includes('row') && key.includes('col')) {
                 var rowStart = parseInt(key.substr(3, 1));
                 var colStart = parseInt(key.substr(7, 1));
                 var ctr = 0;
