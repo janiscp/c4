@@ -54,10 +54,14 @@
         var color = data.color;
         
         if (data.color == 'red') {
-            color = 'pink';
+            if (playGame.player != player) {
+                color = 'pink';
+            }
         }
         else if (data.color == 'gold') {
-            color = 'yellow';
+            if (playGame.player != player) {
+                color = 'yellow';
+            }
         }
 
         hoverColumn(data.column, color);
@@ -162,7 +166,7 @@
         }
 
         hdr.style.backgroundColor = color;
-        console.log(color);
+        //console.log(color);
     }
 
 
@@ -182,6 +186,7 @@
         
         move(col);
         socket.emit('player_move', col);
+        //console.log(disc);
     }
 
 
@@ -230,12 +235,14 @@
         if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'RU']) {
             currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'RU' ] = 1;
 
-            var xx = lastMove.x-1;
-            var yy = lastMove.y-1;
-            for (var a=0; a < 4; a++, xx--, yy--) {
+            var xx = (lastMove.x != 0) ? lastMove.x - 1 : lastMove.x + 1;
+            var yy = (lastMove.x != 0) ? lastMove.y - 1 : lastMove.y + 1;
+            for (var a=0; a < 4; a++) {
                 if (currentPlayer['row' + xx + 'col' + yy + 'RU']) {
                     currentPlayer['row' + xx + 'col' + yy + 'RU']++;
                 }
+                xx = (lastMove.x != 0) ? xx-1 : xx+1;
+                yy = (lastMove.x != 0) ? yy-1 : yy+1;
             }
         }
 
@@ -243,12 +250,14 @@
         if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'LU']) {
             currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'LU' ] = 1;
 
-            var xx = lastMove.x - 1;
-            var yy = lastMove.y + 1;
-            for (var a=0; a < 4; a++, xx--, yy++) {
-                if (currentPlayer['row' + xx + 'col' + yy + 'LU']) {
+            var xx = (lastMove.x != 0) ? lastMove.x - 1 : lastMove.x + 1;
+            var yy = (lastMove.x != 0) ? lastMove.y + 1 : lastMove.y - 1;
+            for (var a=0; a < 4; a++) {
+                if (currentPlayer['row' + xx + 'col' + yy + 'LU']) { 
                     currentPlayer['row' + xx + 'col' + yy + 'LU']++;
                 }
+                xx = (lastMove.x != 0) ? xx-1 : xx+1;
+                yy = (lastMove.x != 0) ? yy+1 : yy-1;
             }
         }
         
@@ -275,9 +284,9 @@
 
 
     function checkPattern(player, p) {
-        var arr = Object.keys(currentSpace).map(function (key) { return currentSpace[key]; });
-        if (arr) {
-            if (arr[0] >= 6 && arr[1] >= 6 && arr[2] >= 6 && arr[3] >= 6 && arr[4] >= 6 && arr[5] >= 6 && arr[6] >= 6) {
+        var arrDraw = Object.keys(currentSpace).map(function (key) { return currentSpace[key]; });
+        if (arrDraw) {
+            if (arrDraw[0] >= 6 && arrDraw[1] >= 6 && arrDraw[2] >= 6 && arrDraw[3] >= 6 && arrDraw[4] >= 6 && arrDraw[5] >= 6 && arrDraw[6] >= 6) {
                 console.log("It's a draw");
                 announceWinner("draw");
             }
@@ -294,9 +303,9 @@
                     announceWinner(player);
                 }
             }
-            else if (key.includes('LU')) {
+            else if (key.includes('LU')) { 
                 arr = p[key];
-                if (arr == 4) {
+                if (arr == 4) { debugger;
                     console.log(player + ' wins!');
                     announceWinner(player);
                 }
@@ -316,7 +325,7 @@
                 }
 
                 // diagonal left
-                if (arr.length == 4) { 
+                if (arr.length == 4) { debugger;
                     if (arr[0] == arr[1] && arr[1] == arr[2] && arr[2] == arr[3]) {
                         console.log(player + ' wins!');
                         announceWinner(player);
