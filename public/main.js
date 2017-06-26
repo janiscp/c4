@@ -231,8 +231,12 @@
             currentPlayer['col' + lastMove.y].push(lastMove.x);
         }
 
+        if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y]) {
+            currentPlayer['row' + lastMove.x + 'col' + lastMove.y] = 1;
+        }
 
-        if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'RU']) {
+
+        /*if (!currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'RU']) {
             currentPlayer['row' + lastMove.x + 'col' + lastMove.y + 'RU' ] = 1;
 
             var xx = (lastMove.x != 0) ? lastMove.x - 1 : lastMove.x + 1;
@@ -240,6 +244,9 @@
             for (var a=0; a < 4; a++) {
                 if (currentPlayer['row' + xx + 'col' + yy + 'RU']) {
                     currentPlayer['row' + xx + 'col' + yy + 'RU']++;
+                }
+                else {
+                    break;
                 }
                 xx = (lastMove.x != 0) ? xx-1 : xx+1;
                 yy = (lastMove.x != 0) ? yy-1 : yy+1;
@@ -256,13 +263,16 @@
                 if (currentPlayer['row' + xx + 'col' + yy + 'LU']) { 
                     currentPlayer['row' + xx + 'col' + yy + 'LU']++;
                 }
+                else {
+                    break;
+                }
                 xx = (lastMove.x != 0) ? xx-1 : xx+1;
                 yy = (lastMove.x != 0) ? yy+1 : yy-1;
             }
-        }
+        }*/
         
-        //console.log(p1);
-        //console.log(p2);
+        console.log(p1);
+        console.log(p2);
         
 
         checkPattern(player, currentPlayer);
@@ -294,18 +304,25 @@
         
         Object.keys(p).forEach(function(key) {
             var arr = null;
+            //console.log(p);
 
-            //diagonal
-            if (key.includes('RU')) {
-                arr = p[key];
-                if (arr == 4) {
+            
+            if (key.includes('row') && key.includes('col')) { debugger;
+                var rowStart = parseInt(key.substr(3, 1));
+                var colStart = parseInt(key.substr(7, 1));
+                var ctr = 0;
+                if (p.hasOwnProperty('row'+ (rowStart) +'col'+ (colStart)) && 
+                    p.hasOwnProperty('row'+ (rowStart+1) +'col'+ (colStart+1)) && 
+                    p.hasOwnProperty('row'+ (rowStart+2) +'col'+ (colStart+2)) && 
+                    p.hasOwnProperty('row'+ (rowStart+3) +'col'+ (colStart+3))) {
                     console.log(player + ' wins!');
                     announceWinner(player);
                 }
-            }
-            else if (key.includes('LU')) { 
-                arr = p[key];
-                if (arr == 4) { debugger;
+
+                if (p.hasOwnProperty('row'+ (rowStart) +'col'+ (colStart)) && 
+                    p.hasOwnProperty('row'+ (rowStart+1) +'col'+ (colStart-1)) && 
+                    p.hasOwnProperty('row'+ (rowStart+2) +'col'+ (colStart-2)) && 
+                    p.hasOwnProperty('row'+ (rowStart+3) +'col'+ (colStart-3))) {
                     console.log(player + ' wins!');
                     announceWinner(player);
                 }
@@ -323,15 +340,6 @@
                         announceWinner(player);
                     }
                 }
-
-                // diagonal left
-                if (arr.length == 4) { debugger;
-                    if (arr[0] == arr[1] && arr[1] == arr[2] && arr[2] == arr[3]) {
-                        console.log(player + ' wins!');
-                        announceWinner(player);
-                    }
-                }
-
             }
         });
         
