@@ -157,11 +157,12 @@
             console.log("Awaiting oppenent's move.");
             //$("div#player-status").html("Awaiting opponent's move.");
         }
-        hdr.style.backgroundColor = color;
-
-        if (playGame.player == player) {
+        else if (playGame.player == player) {
             socket.emit('active_column', { column: col, color: color});
         }
+
+        hdr.style.backgroundColor = color;
+        //console.log(color);
     }
 
 
@@ -278,6 +279,7 @@
         if (arr) {
             if (arr[0] >= 6 && arr[1] >= 6 && arr[2] >= 6 && arr[3] >= 6 && arr[4] >= 6 && arr[5] >= 6 && arr[6] >= 6) {
                 console.log("It's a draw");
+                announceWinner("draw");
             }
         }
         
@@ -328,16 +330,19 @@
 
 
     function announceWinner(winner) {
-        var player = "";
+        var msg = "";
 
         if (winner == "p1") {
-            player = "RED ";
+            msg = "RED wins!";
         }
-        else {
-            player = "YELLOW ";
+        else if (winner == "p2") {
+            msg = "YELLOW wins!";
+        }
+        else if (winner == "draw") {
+            msg = "It's a draw!";
         }
         
-        $("p#message-winner").text(player + " wins!");
+        $("p#message-winner").text(msg);
         $(".ui-dialog-titlebar").hide();
         $("#dialog-winner").dialog("open");
 

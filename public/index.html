@@ -20,22 +20,21 @@
   <script>
     $( function() {
        
-
         $( "#dialog-message" ).dialog({
             modal: true,
             open: function(event, ui) {
                 $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-            }
-            /*buttons: {
+            },
+            buttons: {
                 Ok: function() {
                     $( this ).dialog( "close" );
                 }
-            }*/
+            }
         });
 
         //$("#player-status").hide();
         $( "#player-status" ).on('dialogclose', function(event) {
-           $("#player-status").show();
+            $("#player-status").show();
         });
 
 
@@ -63,7 +62,7 @@
 
 <div id="dialog-message" title="Waiting for opponent">
   <p>Share the URL</p>
-  <input type="text" readonly value="https://sheltered-dusk-67874.herokuapp.com/" >
+  <textarea  rows="3" cols="32">https://sheltered-dusk-67874.herokuapp.com/</textarea>
 </div>
 
 <div id="dialog-winner" title="">
