@@ -60,7 +60,7 @@
             color = 'yellow';
         }
 
-        hoverColumn(data.column, color);
+        //hoverColumn(data.column, color);
     });
 
     socket.on('player_move', function (data) {
