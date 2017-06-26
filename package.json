@@ -1,0 +1,13 @@
+{
+  "name": "connect4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.15.3",
+    "socket.io": "^2.0.3"
+  },
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "Janis Pagal"
+}

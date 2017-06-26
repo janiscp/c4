@@ -1,0 +1,47 @@
+html, body{
+	/*background: lightskyblue;*/
+  border-top: 100px;
+	font-family: Helvetica;
+	font-size: 16px;
+	width: 530px;
+	margin: auto;
+}
+
+div#player-status {
+    background-color: lightskyblue;
+    width: 100%;
+    border: 10px none ;
+    padding: 10px;
+    margin: 20px;
+    text-align: center;
+}
+
+li {
+  background: whitesmoke;
+  margin: 5px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  list-style: none;
+  display: inline-block;
+  box-shadow: none  1px 1px 2px #555;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+   z-index: 100;
+}
+
+li.header {
+  background: white;
+  box-shadow: none;
+}
+
+.p1 {
+  background: red;
+}
+
+.p2{
+  background: gold; 
+}
